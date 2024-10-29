@@ -9,7 +9,21 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen 
+          name="Temperatura" 
+          component={HomeScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#00796b',
+            },
+            headerTintColor: '#ffffff', 
+            headerTitleStyle: {
+              fontWeight: 'bold', 
+              fontSize: 24, 
+            },
+            headerTitleAlign: 'center', 
+          }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

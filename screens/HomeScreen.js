@@ -1,6 +1,5 @@
-// WeatherApp.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
 
 const WeatherApp = () => {
@@ -29,7 +28,7 @@ const WeatherApp = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Verifique a Temperatura</Text>
       <TextInput
         style={styles.input}
@@ -37,9 +36,11 @@ const WeatherApp = () => {
         value={city}
         onChangeText={setCity}
       />
-      <Button title="Buscar Temperatura" onPress={fetchWeather} />
+      <TouchableOpacity style={styles.button} onPress={fetchWeather}>
+        <Text style={styles.buttonText}>Buscar Temperatura</Text>
+      </TouchableOpacity>
       {temperature !== null && (
-        <View>
+        <View style={styles.resultContainer}>
           <Text style={styles.result}>Temperatura: {temperature} °C</Text>
           <Text style={styles.result}>Condição: {condition}</Text>
           <Text style={styles.result}>Vento: {wind} km/h</Text>
@@ -47,7 +48,7 @@ const WeatherApp = () => {
         </View>
       )}
       {error ? <Text style={styles.error}>{error}</Text> : null}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -56,27 +57,65 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
+    backgroundColor: '#e0f7fa', // Cor de fundo suave
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    color: '#00796b', // Cor do título
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    height: 50,
+    borderColor: '#00796b',
+    borderWidth: 2,
+    borderRadius: 25,
     marginBottom: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#ffffff', // Fundo branco para o input
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5, // Sombra para Android
+  },
+  button: {
+    backgroundColor: '#00796b', // Cor do botão
+    paddingVertical: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  resultContainer: {
+    marginTop: 30,
+    padding: 20,
+    borderRadius: 15,
+    backgroundColor: '#ffffff', // Fundo branco para o resultado
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   result: {
-    fontSize: 18,
+    fontSize: 20,
     marginVertical: 5,
+    color: '#333',
   },
   error: {
     color: 'red',
     marginTop: 20,
+    textAlign: 'center',
   },
 });
 
